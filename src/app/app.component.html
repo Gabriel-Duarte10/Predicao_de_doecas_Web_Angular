@@ -1,9 +1,9 @@
-<form [formGroup]="myForm" class="form-container">
+<form [formGroup]="form" class="form-container">
 
-  <ng-container formArrayName="colors">
+  <ng-container formArrayName="sintomas">
 
 
-    <ng-container *ngFor="let _ of colors.controls; let idx = index" [formGroupName]="idx">
+    <ng-container *ngFor="let _ of sintomas.controls; let idx = index" [formGroupName]="idx">
 
       <div class="form-inline mb-1">
 
@@ -15,7 +15,7 @@
           <option value="3">Three</option>
         </select>
 
-        <button class="btn btn-primary btn-sm ml-1" (click)="removeColor(idx)">x</button>
+        <button class="btn btn-primary btn-sm ml-1" (click)="removeSintomas(idx)">x</button>
 
 
       </div>
@@ -25,12 +25,12 @@
 
   </ng-container>
 
-  <button class="bn btn-primary" (click)="addColor()">Add new</button>
+  <button class="bn btn-primary" (click)="addSintomas()">Add new</button>
 
 </form>
 
 
 
 <pre>
-  {{myForm.value | json}}
+  {{form.value | json}}
 </pre>

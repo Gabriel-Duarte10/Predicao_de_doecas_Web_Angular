@@ -7,30 +7,26 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  myForm!: FormGroup
+  form!: FormGroup
 
-  get colors(): FormArray {
-    return this.myForm.get('colors') as FormArray
+  get sintomas(): FormArray {
+    return this.form.get('sintomas') as FormArray
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.myForm = this.fb.group({
-      colors: this.fb.array([
-        this.fb.group({name: 'red'}),
-        this.fb.group({name: 'green'}),
-        this.fb.group({name: 'blue'}),
-      ]),
+    this.form = this.formBuilder.group({
+      sintomas: this.formBuilder.array([]),
     })
   }
 
-  removeColor(index: number) {
-    this.colors.removeAt(index)
+  removeSintomas(index: number) {
+    this.sintomas.removeAt(index)
   }
 
-  addColor() {
-    this.colors.push(this.fb.group({name: ''}))
+  addSintomas() {
+    this.sintomas.push(this.formBuilder.group({name: ''}))
   }
 
 }
