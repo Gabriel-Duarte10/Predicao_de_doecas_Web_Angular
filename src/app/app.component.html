@@ -3,24 +3,57 @@
   <ng-container formArrayName="sintomas">
 
 
-    <ng-container *ngFor="let _ of sintomas.controls; let idx = index" [formGroupName]="idx">
-
-      <div class="form-inline mb-1">
-
-        <!-- <input class="form-control" formControlName="name"> -->
-        <select class="form-control" formControlName="name" aria-label="Default select example">
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-
-        <button class="btn btn-primary btn-sm ml-1" (click)="removeSintomas(idx)">x</button>
-
-
+    <div *ngFor="let _ of sintomas.controls; let idx = index" [formGroupName]="idx">
+      <div class="d-flex">
+        <div class="row">
+          <div class="d-flex align-items-center col">
+              <select class="form-select" formControlName="name" >
+                <option selected disabled selected value="" > Doenças Mentais</option>
+                <option *ngFor="let mental of mentais" [value]="mental.id">{{ mental.nome }}</option>
+              </select>
+              <div class="d-flex flex-row-reverse ml-5">
+                <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
+              </div>
+          </div>
+          <div class="d-flex align-items-center col">
+              <select class="form-select" formControlName="name" >
+                <option selected disabled selected value="" > Doenças na Cabeça</option>
+                <option *ngFor="let cabeca of cabecas" [value]="cabeca.id">{{ cabeca.nome }}</option>
+              </select>
+              <div class="d-flex flex-row-reverse ml-5">
+                <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
+              </div>
+          </div>
+          <div class="d-flex align-items-center col">
+            <select class="form-select" formControlName="name" >
+              <option selected disabled selected value="" > Doenças frontais</option>
+              <option *ngFor="let frontal of frontais" [value]="frontal.id">{{ frontal.nome }}</option>
+            </select>
+            <div class="d-flex flex-row-reverse ml-5">
+              <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
+            </div>
+        </div>
+        <div class="d-flex align-items-center col">
+          <select class="form-select" formControlName="name" >
+            <option selected disabled selected value="" > Doenças nas extremidades</option>
+            <option *ngFor="let extremidade of extremidades" [value]="extremidade.id">{{ extremidade.nome }}</option>
+          </select>
+          <div class="d-flex flex-row-reverse ml-5">
+            <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
+          </div>
       </div>
-
-    </ng-container>
+      <div class="d-flex align-items-center col">
+        <select class="form-select" formControlName="name" >
+          <option selected disabled selected value="" > Doenças na Cabeça</option>
+          <option *ngFor="let cabeca of cabecas" [value]="cabeca.id">{{ cabeca.nome }}</option>
+        </select>
+        <div class="d-flex flex-row-reverse ml-5">
+          <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
+        </div>
+    </div>
+        </div>
+      </div>
+    </div>
 
 
   </ng-container>
