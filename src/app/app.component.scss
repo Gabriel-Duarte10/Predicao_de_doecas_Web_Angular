@@ -1,1 +1,26 @@
 @import "../styles.scss";
+//modal
+.modal-header{
+  color: #7082a4 !important;
+  text-transform: uppercase !important;
+  font-weight: bold !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+}
+.modal-body{
+  color: #7082a4 !important;
+  text-transform: uppercase !important;
+  font-weight: bold !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+}
+
+.modal-footer{
+border: none !important;
+}
+//modal
+.row > * {
+  width: 33% !important;
+}
+.mat-checkbox-inner-container {
+  width: 0px !important;
+  height: 0px !important;
+}

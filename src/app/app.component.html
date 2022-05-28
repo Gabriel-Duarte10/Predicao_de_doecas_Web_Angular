@@ -1,69 +1,138 @@
-<form [formGroup]="form" class="form-container">
+<div class="row m-5">
+  <div class="col">
+    <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(mentalModal)">
+      <span>Doenças Mentais</span>
+    </button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(cabecasModal)">
+      <span>Doenças na Cabeça</span>
+    </button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(frontaisModal)">
+      <span>Doenças frontais</span>
+    </button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(extremidadesModal)">
+      <span>Doenças nas extremidades</span>
+    </button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(corpoTodosModal)">
+      <span>Doenças na Cabeça</span>
+    </button>
+  </div>
+</div>
 
-  <ng-container formArrayName="sintomas">
+<ng-template #mentalModal let-modal>
+  <div class="modal-header mt-2">
+    <h5 >Doenças Mentais</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      X
+    </button>
+  </div>
 
-
-    <div *ngFor="let _ of sintomas.controls; let idx = index" [formGroupName]="idx">
-      <div class="d-flex">
-        <div class="row">
-          <div class="d-flex align-items-center col">
-              <select class="form-select" formControlName="name" >
-                <option selected disabled selected value="" > Doenças Mentais</option>
-                <option *ngFor="let mental of mentais" [value]="mental.id">{{ mental.nome }}</option>
-              </select>
-              <div class="d-flex flex-row-reverse ml-5">
-                <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
-              </div>
-          </div>
-          <div class="d-flex align-items-center col">
-              <select class="form-select" formControlName="name" >
-                <option selected disabled selected value="" > Doenças na Cabeça</option>
-                <option *ngFor="let cabeca of cabecas" [value]="cabeca.id">{{ cabeca.nome }}</option>
-              </select>
-              <div class="d-flex flex-row-reverse ml-5">
-                <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
-              </div>
-          </div>
-          <div class="d-flex align-items-center col">
-            <select class="form-select" formControlName="name" >
-              <option selected disabled selected value="" > Doenças frontais</option>
-              <option *ngFor="let frontal of frontais" [value]="frontal.id">{{ frontal.nome }}</option>
-            </select>
-            <div class="d-flex flex-row-reverse ml-5">
-              <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
-            </div>
-        </div>
-        <div class="d-flex align-items-center col">
-          <select class="form-select" formControlName="name" >
-            <option selected disabled selected value="" > Doenças nas extremidades</option>
-            <option *ngFor="let extremidade of extremidades" [value]="extremidade.id">{{ extremidade.nome }}</option>
-          </select>
-          <div class="d-flex flex-row-reverse ml-5">
-            <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
-          </div>
-      </div>
-      <div class="d-flex align-items-center col">
-        <select class="form-select" formControlName="name" >
-          <option selected disabled selected value="" > Doenças na Cabeça</option>
-          <option *ngFor="let cabeca of cabecas" [value]="cabeca.id">{{ cabeca.nome }}</option>
-        </select>
-        <div class="d-flex flex-row-reverse ml-5">
-          <button class="btn btn-primary" (click)="removeSintomas(idx)">X</button>
-        </div>
-    </div>
+  <div class="modal-body">
+    <div class="row">
+      <div *ngFor="let subskill of mentais">
+        <div class="col">
+          <mat-checkbox [(ngModel)]="subskill.completed"
+                      (change)="updateAllComplete(subskill, 1)">
+            {{subskill.nome}}
+          </mat-checkbox>
         </div>
       </div>
     </div>
+  </div>
+</ng-template>
 
+<ng-template #cabecasModal let-modal>
+  <div class="modal-header mt-2">
+    <h5 >Doenças na Cabeça</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      X
+    </button>
+  </div>
 
-  </ng-container>
+  <div class="modal-body">
+    <div class="row">
+      <div *ngFor="let subskill of cabecas">
+        <div class="col">
+          <mat-checkbox [(ngModel)]="subskill.completed"
+                      (change)="updateAllComplete(subskill, 2)">
+            {{subskill.nome}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
-  <button class="bn btn-primary" (click)="addSintomas()">Add new</button>
+<ng-template #frontaisModal let-modal>
+  <div class="modal-header mt-2">
+    <h5 >Doenças frontais</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      X
+    </button>
+  </div>
 
-</form>
+  <div class="modal-body">
+    <div class="row">
+      <div *ngFor="let subskill of frontais">
+        <div class="col">
+          <mat-checkbox [(ngModel)]="subskill.completed"
+                      (change)="updateAllComplete(subskill, 3)">
+            {{subskill.nome}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
+<ng-template #extremidadesModal let-modal>
+  <div class="modal-header mt-2">
+    <h5 >Doenças nas extremidades</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      X
+    </button>
+  </div>
 
+  <div class="modal-body">
+    <div class="row">
+      <div *ngFor="let subskill of extremidades">
+        <div class="col">
+          <mat-checkbox [(ngModel)]="subskill.completed"
+                      (change)="updateAllComplete(subskill, 4)">
+            {{subskill.nome}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
-<pre>
-  {{form.value | json}}
-</pre>
+<ng-template #corpoTodosModal let-modal>
+  <div class="modal-header mt-2">
+    <h5 >Doenças na Cabeça</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      X
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <div *ngFor="let subskill of corpoTodos">
+        <div class="col">
+          <mat-checkbox [(ngModel)]="subskill.completed"
+                      (change)="updateAllComplete(subskill, 5)">
+            {{subskill.nome}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

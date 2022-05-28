@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -11,6 +11,11 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
+    FormsModule
+  ],
+  exports: [
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
