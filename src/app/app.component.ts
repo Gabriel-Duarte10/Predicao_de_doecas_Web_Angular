@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
    @ViewChild("frontaisModal") frontaisModal: TemplateRef<any>
    @ViewChild("extremidadesModal") extremidadesModal: TemplateRef<any>
    @ViewChild("corpoTodosModal") corpoTodosModal: TemplateRef<any>
+   @ViewChild("resultado") resultado: TemplateRef<any>
 
   constructor(private formBuilder: FormBuilder, private modalService: NgbModal) {}
 

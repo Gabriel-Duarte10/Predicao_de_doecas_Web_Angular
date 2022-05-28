@@ -136,3 +136,25 @@
   </div>
 </ng-template>
 
+<ng-template #resultado let-modal>
+  <div class="modal-header mt-2">
+    <h5 >Resultado</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      X
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class=" d-flex justify-content-center align-items-center w-100" style="background-color: green; color: black; border-radius: 70px;">
+        <h2>Hepatitis B 58.63%</h2>
+    </div>
+    <div class="row">
+      <div class="col d-flex justify-content-center align-items-center w-100 mt-2" style="background-color: blue; color: black; border-radius: 70px;">
+        <h4>AIDS 41.36%</h4>
+      </div>
+      <div class="col d-flex justify-content-center align-items-center w-100 pt-2 mt-3" style="background-color: red; color: black; border-radius: 70px;">
+        <h5>Psoriasis 3.10%</h5>
+      </div>
+  </div>
+  </div>
+</ng-template>
