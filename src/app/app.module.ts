@@ -3,7 +3,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AppComponent } from './app.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { NgApexchartsModule } from 'ng-apexcharts';
 @NgModule({
   declarations: [
     AppComponent
@@ -12,7 +13,9 @@ import { AppComponent } from './app.component';
     BrowserModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    NgApexchartsModule
   ],
   exports: [
     MatCheckboxModule

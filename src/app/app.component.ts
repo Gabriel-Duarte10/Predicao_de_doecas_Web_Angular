@@ -1,12 +1,16 @@
+import { AppService } from './app.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChartComponent } from 'ng-apexcharts';
+import { ChartOptions } from './app';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  habiltarBotao: boolean = true;
   mentais = Array();
   cabecas = Array();
   frontais = Array();
@@ -22,10 +26,14 @@ export class AppComponent implements OnInit {
    @ViewChild("extremidadesModal") extremidadesModal: TemplateRef<any>
    @ViewChild("corpoTodosModal") corpoTodosModal: TemplateRef<any>
    @ViewChild("resultado") resultado: TemplateRef<any>
+   //grafico
+   @ViewChild("chart") chart: ChartComponent;
+   public chartOptions: Partial<ChartOptions>;
+  constructor(private formBuilder: FormBuilder, private modalService: NgbModal, private appService: AppService) {}
 
-  constructor(private formBuilder: FormBuilder, private modalService: NgbModal) {}
-
-  ngOnInit() {
+  async ngOnInit() {
+    // var re = await this.appService.httGet();
+    // console.log(re);
     this.addListas();
   }
   addListas()
@@ -778,10 +786,18 @@ export class AppComponent implements OnInit {
     }
   }
   updateAllComplete(sintoma: any, cat: number){
+    console.log(this.doençasSelecionadas.length);
 
-    if(this.doençasSelecionadas.find(x => x == sintoma.id))
+    if(this.doençasSelecionadas.length < 0)
     {
-      this.doençasSelecionadas.splice(this.doençasSelecionadas.findIndex(x => x == sintoma.id), 1);
+      this.habiltarBotao = true;
+    }
+    else{
+      this.habiltarBotao = false;
+    }
+    if(this.doençasSelecionadas.find(x => x.sintoma == sintoma.id))
+    {
+      this.doençasSelecionadas.splice(this.doençasSelecionadas.findIndex(x => x.sintoma == sintoma.id), 1);
       switch (cat) {
         case 1:
           this.mentais.find(x => x.id == sintoma.id).completed = "";
@@ -802,7 +818,7 @@ export class AppComponent implements OnInit {
           break;
       }
     }else{
-      this.doençasSelecionadas.push(sintoma.id)
+      this.doençasSelecionadas.push({sintoma: sintoma.id})
       switch (cat) {
         case 1:
           this.mentais.find(x => x.id == sintoma.id).completed = "completed";
@@ -823,7 +839,125 @@ export class AppComponent implements OnInit {
           break;
       }
     }
-    console.log(this.doençasSelecionadas);
+  }
+  async submit(){
+    var response = await this.appService.httPost(this.doençasSelecionadas);
+    var diagSerie = [];
+    var diagLabel = [];
+    diagLabel.push(response.Doença2);
+    diagLabel.push(response.Doença1);
+    diagLabel.push(response.Doença3);
+    diagSerie.push(parseFloat(response.Probabilidade2).toFixed(2));
+    diagSerie.push(parseFloat(response.Probabilidade1).toFixed(2));
+    diagSerie.push(parseFloat(response.Probabilidade3).toFixed(2));
 
+    this.chartOptions = {
+      series: [
+        {
+          name: "Porcentagem",
+          data: diagSerie
+        }
+      ],
+      chart: {
+        height: 300,
+        type: "bar",
+      },
+      colors: [
+        "#008FFB",
+        "#00E396",
+        "#FEB019",
+        "#FF4560",
+        "#775DD0",
+        "#546E7A",
+        "#26a69a",
+        "#D10CE8"
+      ],
+      plotOptions: {
+        bar: {
+          columnWidth: "80%",
+          distributed: true,
+          borderRadius: 10,
+          dataLabels: {
+            position: 'top',
+          },
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        offsetY: -25,
+        style: {
+          fontSize: '15px',
+          colors: [
+            "#008FFB",
+            "#00E396",
+            "#FEB019",
+            "#FF4560",
+            "#775DD0",
+            "#546E7A",
+            "#26a69a",
+            "#D10CE8"
+          ]
+        },
+        formatter: function(val: any) {
+          return val + "%"
+        }
+      },
+      legend: {
+        show: false
+      },
+      grid: {
+        show: false
+      },
+      xaxis: {
+        show: true,
+        categories: diagLabel,
+        labels: {
+          style: {
+            colors: [
+              "#008FFB",
+              "#00E396",
+              "#FEB019",
+              "#FF4560",
+              "#775DD0",
+              "#546E7A",
+              "#26a69a",
+              "#D10CE8"
+            ],
+            fontSize: "12px"
+          }
+        }
+      },
+      yaxis: {
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: true,
+        }
+      },
+      title: {
+        show: true,
+        text: "GRAFICO DE POSSIVEIS DOENÇAS",
+        align: "left",
+        margin: 30,
+        style: {
+          fontSize: '18px',
+          fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
+          color: '#7082A4',
+        }
+      },
+    };
+    this.open(this.resultado);
+    this.doençasSelecionadas = [];
+    this.mentais = [];
+    this.cabecas = [];
+    this.frontais = [];
+    this.extremidades = [];
+    this.corpoTodos = [];
+    this.addListas();
+    this.habiltarBotao = true;
   }
 }

@@ -1,27 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand">Predição de Doenças</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page">Predição</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <div class="row m-5">
   <div class="col">
+    <label class="fs-15 text-blue-light text-uppercase font-weight-bold mb-1">Botão para Sintomas Mentais</label>
     <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(mentalModal)">
       <span>Doenças Mentais</span>
     </button>
   </div>
   <div class="col">
+    <label class="fs-15 text-blue-light text-uppercase font-weight-bold mb-1">Botão para Sintomas na Cabeça</label>
     <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(cabecasModal)">
       <span>Doenças na Cabeça</span>
     </button>
   </div>
+</div>
+<div class="row m-5">
   <div class="col">
+    <label class="fs-15 text-blue-light text-uppercase font-weight-bold mb-1">Botão para Sintomas de Região frontal</label>
     <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(frontaisModal)">
       <span>Doenças frontais</span>
     </button>
   </div>
   <div class="col">
+    <label class="fs-15 text-blue-light text-uppercase font-weight-bold mb-1">Botão para Doenças nas Extreminades do corpo</label>
     <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(extremidadesModal)">
       <span>Doenças nas extremidades</span>
     </button>
   </div>
+</div>
+<div class="row m-5">
   <div class="col">
+    <label class="fs-15 text-blue-light text-uppercase font-weight-bold mb-1">Botão para Sintomas no Corpo Todo </label>
     <button class="btn btn-primary d-flex justify-content-center w-100" (click)="open(corpoTodosModal)">
-      <span>Doenças na Cabeça</span>
+      <span>Doenças na Corpo Todo</span>
+    </button>
+  </div>
+</div>
+
+<div  class="row m-5 mt-10" style="margin-top: 10%;">
+  <div class="col">
+    <button data-toggle="tooltip" data-placement="right" title="Botão só será habilitado caso pelo meno um sintoma seja selecionado" [disabled]="habiltarBotao" class="btn btn-primary d-flex justify-content-center w-100" (click)="submit()">
+      <span>Calcular Porcentagem</span>
     </button>
   </div>
 </div>
@@ -145,16 +178,19 @@
   </div>
 
   <div class="modal-body">
-    <div class=" d-flex justify-content-center align-items-center w-100" style="background-color: green; color: black; border-radius: 70px;">
-        <h2>Hepatitis B 58.63%</h2>
+    <div class="grafico" id="chart">
+      <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [dataLabels]="chartOptions.dataLabels"
+          [plotOptions]="chartOptions.plotOptions"
+          [yaxis]="chartOptions.yaxis"
+          [xaxis]="chartOptions.xaxis"
+          [legend]="chartOptions.legend"
+          [colors]="chartOptions.colors"
+          [grid]="chartOptions.grid"
+          [title]="chartOptions.title"
+        ></apx-chart>
     </div>
-    <div class="row">
-      <div class="col d-flex justify-content-center align-items-center w-100 mt-2" style="background-color: blue; color: black; border-radius: 70px;">
-        <h4>AIDS 41.36%</h4>
-      </div>
-      <div class="col d-flex justify-content-center align-items-center w-100 pt-2 mt-3" style="background-color: red; color: black; border-radius: 70px;">
-        <h5>Psoriasis 3.10%</h5>
-      </div>
-  </div>
   </div>
 </ng-template>
